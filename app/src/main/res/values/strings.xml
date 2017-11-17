@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Lucerna</string>
+    <string name="error_message">Algo de errado aconteceu, verifique a sua conexão.</string>
+    <string name="movie_details">Detalhes do Filme</string>
+    <string name="the_movie_db_api_key">02e7ea83e252923ae63e50b78d3c7e2c</string>
+    <string name="year_label">Ano: </string>
+    <string name="btn_visualize_movie_details_text">Ver Mais</string>
+    <string name="no_overview_text">Ops! Parece não haver sinopse para este filme. Pedimos desculpa!</string>
+
+    <!-- Strings for each type of genre -->
+    <string name="action_genre_text">Ação</string>
+    <string name="adventure_genre_text">Aventura</string>
+    <string name="animation_genre_text">Animação</string>
+    <string name="comedy_genre_text">Comédia</string>
+    <string name="crime_genre_text">Crime</string>
+    <string name="documentary_genre_text">Documentário</string>
+    <string name="drama_genre_text">Drama</string>
+    <string name="family_genre_text">Família</string>
+    <string name="horror_genre_text">Horror</string>
+    <string name="music_genre_text">Música</string>
+    <string name="romance_genre_text">Romance</string>
+    <string name="science_fiction_genre_text">Ficção Científica</string>
+    <string name="thriller_genre_text">Thriller</string>
+    <string name="war_genre_text">Guerra</string>
+
+    <string name="action_favorite_text">Favoritar</string>
+    <string name="movie_favorited_text">Este filme foi adicionado aos favoritos</string>
+    <string name="movie_unfavorited_text">Este filme foi removido dos seus favoritos</string>
+
+    <string name="action_movies_category">Filmes de Ação</string>
+    <string name="drama_movies_category">Filmes de Drama</string>
+    <string name="horror_movies_category">Filmes de Horror</string>
+    <string name="science_fiction_movies_category">Filmes de Ficção Científica</string>
+
+</resources>
