@@ -1,4 +1,4 @@
-package com.bitpapr.lucerna;
+package com.bitpapr.lucerna.adapters;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bitpapr.lucerna.R;
 import com.bitpapr.lucerna.models.Movie;
 import com.bitpapr.lucerna.utilities.GenreToStringConverter;
 import com.squareup.picasso.Picasso;

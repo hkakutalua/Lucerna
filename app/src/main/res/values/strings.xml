@@ -31,5 +31,13 @@
     <string name="drama_movies_category">Filmes de Drama</string>
     <string name="horror_movies_category">Filmes de Horror</string>
     <string name="science_fiction_movies_category">Filmes de Ficção Científica</string>
+    <string name="login_email_hint">E-mail</string>
+    <string name="login_password_hint">Palavra-passe</string>
+    <string name="login_button_text">Login</string>
+    <string name="invalid_email_error">E-mail inválido</string>
+    <string name="empty_password_error">Escreva a palavra-passe</string>
+    <string name="login_failure_message">O email ou palavra-passe estão incorretos</string>
+    <string name="network_failure_message">Não há conexão à rede</string>
+    <string name="login_wait_text">Autenticando usuário...</string>
 
 </resources>

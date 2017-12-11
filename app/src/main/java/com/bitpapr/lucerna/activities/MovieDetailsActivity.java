@@ -1,10 +1,8 @@
-package com.bitpapr.lucerna;
+package com.bitpapr.lucerna.activities;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bitpapr.lucerna.R;
 import com.bitpapr.lucerna.models.Movie;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-import static com.bitpapr.lucerna.MainActivity.EXTRA_MOVIE;
 import static com.bitpapr.lucerna.utilities.NetworkUtils.POSTER_BASE_URI;
 
 /**
@@ -45,8 +43,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         ImageView moviePosterImageView = (ImageView)findViewById(R.id.iv_movie_poster);
 
         Intent intent = getIntent();
-        if (intent.hasExtra(EXTRA_MOVIE)) {
-            Movie movie = Parcels.unwrap(intent.getParcelableExtra(EXTRA_MOVIE));
+        if (intent.hasExtra(MainActivity.EXTRA_MOVIE)) {
+            Movie movie = Parcels.unwrap(intent.getParcelableExtra(MainActivity.EXTRA_MOVIE));
 
             movieTitleTextView.setText(movie.getTitle());
             movieOverviewTextView.setText(movie.getOverview());

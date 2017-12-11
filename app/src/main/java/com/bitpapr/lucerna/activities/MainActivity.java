@@ -1,4 +1,4 @@
-package com.bitpapr.lucerna;
+package com.bitpapr.lucerna.activities;
 
 import android.content.Intent;
 import android.support.v4.app.LoaderManager;
@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.bitpapr.lucerna.adapters.MovieAdapter;
+import com.bitpapr.lucerna.R;
 import com.bitpapr.lucerna.models.Movie;
 import com.bitpapr.lucerna.utilities.NetworkUtils;
 
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<ArrayList<Object>>,
-                   MovieAdapter.MovieListItemClickListener {
+        MovieAdapter.MovieListItemClickListener {
 
     private static final String TAG = MainActivity.class.getName();
 

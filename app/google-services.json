@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1001636047180",
+    "firebase_url": "https://lucerna-app.firebaseio.com",
+    "project_id": "lucerna-app",
+    "storage_bucket": "lucerna-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001636047180:android:07322a0456348c5e",
+        "android_client_info": {
+          "package_name": "com.bitpapr.lucerna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1001636047180-mgmqe4so9620b888carkk7a94ev3k285.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqgSV545S6h859Zs8RRPk5iarnHhDZQyY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
