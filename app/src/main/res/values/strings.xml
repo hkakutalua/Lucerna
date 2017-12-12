@@ -51,5 +51,8 @@
     <string name="passwords_not_matched_error">Esta palavra-passe não coincide com a anterior</string>
     <string name="email_already_in_use_error">O email que especificou já está em uso.</string>
     <string name="registration_wait_text">Efetuando registo...</string>
+    <string name="not_existent_account_message">A conta de email não está registada.</string>
+    <string name="account_disabled_message">Sua conta foi desativada</string>
+    <string name="unknown_failure_message">Ocorreu um erro desconhecido</string>
 
 </resources>

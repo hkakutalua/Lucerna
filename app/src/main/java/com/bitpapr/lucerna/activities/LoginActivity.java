@@ -17,6 +17,7 @@ import com.bitpapr.lucerna.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -32,8 +33,7 @@ public class LoginActivity extends AppCompatActivity
 
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
-    private TextView mLoginFailureTextView;
-    private TextView mNetworkFailureTextView;
+    private TextView mLoginErrorTextView;
 
     private ProgressDialog mLoginProgressDialog;
 
@@ -46,8 +46,8 @@ public class LoginActivity extends AppCompatActivity
 
         mEmailEditText = findViewById(R.id.edit_email);
         mPasswordEditText = findViewById(R.id.edit_password);
-        mLoginFailureTextView = findViewById(R.id.text_login_failure);
-        mNetworkFailureTextView = findViewById(R.id.text_network_failure);
+        mLoginErrorTextView = findViewById(R.id.text_login_error);
+
         Button loginButton = findViewById(R.id.button_login);
         TextView registrationLinkTextView = findViewById(R.id.text_registration_link);
 
@@ -83,13 +83,23 @@ public class LoginActivity extends AppCompatActivity
      */
     @Override
     public void onFailure(@NonNull Exception e) {
-        if (e instanceof FirebaseAuthInvalidUserException ||
-                e instanceof FirebaseAuthInvalidCredentialsException) {
-            Log.e(TAG, e.getMessage());
+
+        Log.e(TAG, e.getMessage());
+
+        if (e instanceof FirebaseAuthInvalidCredentialsException) {
             showLoginFailedMessage();
+        } else if (e instanceof FirebaseAuthInvalidUserException) {
+            final String errorCode = ((FirebaseAuthInvalidUserException) e).getErrorCode();
+
+            if (TextUtils.equals(errorCode, "ERROR_USER_NOT_FOUND")) {
+                showNotExistentAccountMessage();
+            } else if (TextUtils.equals(errorCode, "ERROR_USER_DISABLED")) {
+                showAccountDisabledMessage();
+            }
+        } else if (e instanceof FirebaseNetworkException) {
+            showNetworkFailureMessage();
         } else {
-            Log.e(TAG, e.getMessage());
-            showLoginFailedMessage();
+            showUnknownFailureMessage();
         }
 
         mLoginProgressDialog.dismiss();
@@ -145,15 +155,40 @@ public class LoginActivity extends AppCompatActivity
      * Shows a text indicating that the login was unsuccessful
      */
     private void showLoginFailedMessage() {
-        mNetworkFailureTextView.setVisibility(View.INVISIBLE);
-        mLoginFailureTextView.setVisibility(View.VISIBLE);
+        mLoginErrorTextView.setVisibility(View.VISIBLE);
+        mLoginErrorTextView.setText(getString(R.string.login_failure_message));
     }
 
     /**
      * Shows a text indicating that a failure related to network has occurred
      */
     private void showNetworkFailureMessage() {
-        mLoginFailureTextView.setVisibility(View.INVISIBLE);
-        mNetworkFailureTextView.setVisibility(View.VISIBLE);
+        mLoginErrorTextView.setVisibility(View.VISIBLE);
+        mLoginErrorTextView.setText(getString(R.string.network_failure_message));
+    }
+
+    /**
+     * Shows a text indicating that the specified email is not associated
+     * with an account
+     */
+    private void showNotExistentAccountMessage() {
+        mLoginErrorTextView.setVisibility(View.VISIBLE);
+        mLoginErrorTextView.setText(getString(R.string.not_existent_account_message));
+    }
+
+    /**
+     * Shows a text indicating that the specified email was disabled (though registered)
+     */
+    private void showAccountDisabledMessage() {
+        mLoginErrorTextView.setVisibility(View.VISIBLE);
+        mLoginErrorTextView.setText(getString(R.string.account_disabled_message));
+    }
+
+    /**
+     * Shows a text indicating that a unknown error occurred during the login process
+     */
+    private void showUnknownFailureMessage() {
+        mLoginErrorTextView.setVisibility(View.VISIBLE);
+        mLoginErrorTextView.setText(getString(R.string.unknown_failure_message));
     }
 }

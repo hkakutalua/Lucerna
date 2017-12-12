@@ -23,30 +23,13 @@
         android:hint="@string/login_password_hint"
         android:inputType="textPassword"/>
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/text_login_error"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp">
-
-        <TextView
-            android:id="@+id/text_login_failure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_failure_message"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            android:textColor="#f52222"/>
-
-        <TextView
-            android:id="@+id/text_network_failure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/network_failure_message"
-            android:visibility="invisible"
-            android:textColor="#f52222"/>
-
-    </FrameLayout>
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:textColor="#f52222"/>
 
     <Button
         android:id="@+id/button_login"
