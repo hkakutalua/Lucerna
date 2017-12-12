@@ -8,22 +8,26 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center">
+
     <EditText
         android:id="@+id/edit_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/login_email_hint"
         android:inputType="textEmailAddress"/>
+
     <EditText
         android:id="@+id/edit_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/login_password_hint"
         android:inputType="textPassword"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp">
+
         <TextView
             android:id="@+id/text_login_failure"
             android:layout_width="wrap_content"
@@ -32,6 +36,7 @@
             android:layout_gravity="center"
             android:visibility="invisible"
             android:textColor="#f52222"/>
+
         <TextView
             android:id="@+id/text_network_failure"
             android:layout_width="wrap_content"
@@ -40,7 +45,9 @@
             android:text="@string/network_failure_message"
             android:visibility="invisible"
             android:textColor="#f52222"/>
+
     </FrameLayout>
+
     <Button
         android:id="@+id/button_login"
         android:layout_width="match_parent"
@@ -49,4 +56,13 @@
         android:text="@string/login_button_text"
         android:backgroundTint="@color/colorAccent"
         android:textColor="#ffffff"/>
+
+    <TextView
+        android:id="@+id/text_registration_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/registration_link_text"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"/>
 </LinearLayout>

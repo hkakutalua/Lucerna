@@ -49,8 +49,14 @@ public class LoginActivity extends AppCompatActivity
         mLoginFailureTextView = findViewById(R.id.text_login_failure);
         mNetworkFailureTextView = findViewById(R.id.text_network_failure);
         Button loginButton = findViewById(R.id.button_login);
+        TextView registrationLinkTextView = findViewById(R.id.text_registration_link);
 
         loginButton.setOnClickListener((View v) -> loginUser());
+
+        registrationLinkTextView.setOnClickListener((View v) -> {
+            startActivity(new Intent(this, RegistrationActivity.class));
+            finish();
+        });
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mLoginProgressDialog = new ProgressDialog(this);

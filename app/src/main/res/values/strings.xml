@@ -39,5 +39,17 @@
     <string name="login_failure_message">O email ou palavra-passe estão incorretos</string>
     <string name="network_failure_message">Não há conexão à rede</string>
     <string name="login_wait_text">Autenticando usuário...</string>
+    <string name="registration_link_text">Não tens conta? Inscreva-se.</string>
+    <string name="registration_email_hint">Seu e-mail</string>
+    <string name="registration_password_hint">Escreva a palavra-passe</string>
+    <string name="registration_password_confirmation_hint">Confirme a palavra-passe</string>
+    <string name="name_hint">Seu nome</string>
+    <string name="last_name_hint">Sobrenome</string>
+    <string name="register_text">Registar</string>
+    <string name="login_link_text">Já estás inscrito? Entre com a sua conta.</string>
+    <string name="empty_name_field_error">Escreva o seu nome</string>
+    <string name="passwords_not_matched_error">Esta palavra-passe não coincide com a anterior</string>
+    <string name="email_already_in_use_error">O email que especificou já está em uso.</string>
+    <string name="registration_wait_text">Efetuando registo...</string>
 
 </resources>
