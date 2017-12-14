@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitpapr.lucerna.R;
+import com.bitpapr.lucerna.data.UserSharedPreferences;
 import com.bitpapr.lucerna.utilities.BitmapUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -123,7 +124,9 @@ public class ProfileConfigurationActivity extends AppCompatActivity {
 
     /**
      * Finishes the profile configuration by changing the name of
-     * the user and then finish this activity
+     * the user and then finish this activity.
+     * This will also set a value in SharedPreferences that specify that user profile was
+     * already configured, to skip profile configuration when the app launches in the next time
      */
     private void updateProfileNameAndFinish() {
         if (!validNameField())
@@ -138,6 +141,8 @@ public class ProfileConfigurationActivity extends AppCompatActivity {
                     .setDisplayName(name);
 
             firebaseUser.updateProfile(profileChangeRequestBuilder.build());
+            UserSharedPreferences userSharedPreferences = new UserSharedPreferences(this);
+            userSharedPreferences.setUserProfileConfigured(true);
 
             startActivity(new Intent(this, MainActivity.class));
             finish();
