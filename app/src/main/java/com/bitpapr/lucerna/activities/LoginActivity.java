@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity
     public void onComplete(@NonNull Task<AuthResult> task) {
         if (task.isSuccessful()) {
             Log.d(TAG, "Sign in with email was successful");
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, ProfileConfigurationActivity.class));
             finish();
         }
 

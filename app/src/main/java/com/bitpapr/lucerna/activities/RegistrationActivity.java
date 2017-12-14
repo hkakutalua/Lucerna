@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity
             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
             firebaseUser.updateProfile(profileChangeRequestBuilder.build());
 
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, ProfileConfigurationActivity.class));
             finish();
         }
 

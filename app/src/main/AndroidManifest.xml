@@ -37,6 +37,8 @@
         <activity
             android:name=".activities.RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activities.ProfileConfigurationActivity" />
     </application>
 
 </manifest>

@@ -54,5 +54,11 @@
     <string name="not_existent_account_message">A conta de email não está registada.</string>
     <string name="account_disabled_message">Sua conta foi desativada</string>
     <string name="unknown_failure_message">Ocorreu um erro desconhecido</string>
+    <string name="profile_picture_change_description">Toque para mudar sua foto de perfil</string>
+    <string name="proceed_button_text">Prosseguir</string>
+    <string name="no_application_to_open_image">Nenhuma aplicação encontrada para selecionar a imagem</string>
+    <string name="picture_upload_error_text">Não foi possível fazer o upload desta imagem</string>
+    <string name="picture_dowload_error_text">Não foi possível descarregar a sua foto de perfil</string>
+    <string name="picture_not_existent_error">A fotografia selecionada foi movida ou apagada</string>
 
 </resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_profile_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_profile_picture"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                tool:src="@drawable/ic_default_profile_150dp"/>
+
+            <ProgressBar
+                android:id="@+id/progress_image_upload"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                tool:visibility="visible"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_picture_change_description"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:clickable="false" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_picture_upload_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_red_light"
+        android:visibility="invisible"
+        tool:text="Some error here related to the image upload"/>
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/name_hint"/>
+
+    <Button
+        android:id="@+id/button_proceed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/proceed_button_text"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>

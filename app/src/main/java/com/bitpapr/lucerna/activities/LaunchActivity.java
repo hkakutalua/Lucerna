@@ -4,10 +4,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.bitpapr.lucerna.R;
+import com.bitpapr.lucerna.data.UserSharedPreferences;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -32,8 +31,13 @@ public class LaunchActivity extends AppCompatActivity {
         FirebaseUser currentLoggedUser = firebaseAuth.getCurrentUser();
         final Handler handler = new Handler();
 
+        UserSharedPreferences userSharedPreferences = new UserSharedPreferences(this);
+        boolean profileConfigured = userSharedPreferences.getUserProfileConfigured();
+
         if (currentLoggedUser == null) {
             handler.postDelayed(this::showLoginActivity, 2000);
+        } else if (!profileConfigured) {
+            handler.postDelayed(this::showProfileConfigurationActivity, 2000);
         } else {
             handler.postDelayed(this::showMainActivity, 2000);
         }
@@ -45,6 +49,12 @@ public class LaunchActivity extends AppCompatActivity {
     private void showLoginActivity() {
         Intent loginIntent = new Intent(this, LoginActivity.class);
         startActivity(loginIntent);
+        finish();
+    }
+
+    private void showProfileConfigurationActivity() {
+        Intent profileConfigurationIntent = new Intent(this, ProfileConfigurationActivity.class);
+        startActivity(profileConfigurationIntent);
         finish();
     }
 
