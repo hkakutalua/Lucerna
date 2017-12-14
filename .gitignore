@@ -127,5 +127,7 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-# End of https://www.gitignore.io/api/androidstudio
+# Google services and Firebase
+google-services.json
 
+# End of https://www.gitignore.io/api/androidstudio
