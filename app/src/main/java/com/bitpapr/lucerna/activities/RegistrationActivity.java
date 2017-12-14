@@ -32,7 +32,6 @@ public class RegistrationActivity extends AppCompatActivity
 
     private static final String TAG = RegistrationActivity.class.getSimpleName();
 
-    private EditText mNameEditText;
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
     private EditText mPasswordConfirmationEditText;
@@ -47,7 +46,6 @@ public class RegistrationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        mNameEditText = findViewById(R.id.edit_name);
         mEmailEditText = findViewById(R.id.edit_email);
         mPasswordEditText = findViewById(R.id.edit_password);
         mPasswordConfirmationEditText = findViewById(R.id.edit_password_confirmation);
@@ -75,14 +73,6 @@ public class RegistrationActivity extends AppCompatActivity
     public void onComplete(@NonNull Task<AuthResult> task) {
         if (task.isSuccessful()) {
             Log.i(TAG, "The registration was successful");
-            String displayName = mNameEditText.getText().toString();
-
-            UserProfileChangeRequest.Builder profileChangeRequestBuilder =
-                    new UserProfileChangeRequest.Builder()
-                    .setDisplayName(displayName);
-
-            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-            firebaseUser.updateProfile(profileChangeRequestBuilder.build());
 
             startActivity(new Intent(this, ProfileConfigurationActivity.class));
             finish();
@@ -139,17 +129,11 @@ public class RegistrationActivity extends AppCompatActivity
      */
     private boolean validRegistrationFields() {
 
-        String name = mNameEditText.getText().toString();
         String email = mEmailEditText.getText().toString();
         String password = mPasswordEditText.getText().toString();
         String passwordConfirmation = mPasswordConfirmationEditText.getText().toString();
 
         boolean validFields = true;
-
-        if (TextUtils.isEmpty(name)) {
-            validFields = false;
-            mNameEditText.setError(getString(R.string.empty_name_field_error));
-        }
 
         if (TextUtils.isEmpty(email) ||
                 !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

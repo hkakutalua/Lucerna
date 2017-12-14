@@ -21,13 +21,6 @@
             app:srcCompat="@drawable/ic_logo" />
 
         <EditText
-            android:id="@+id/edit_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/name_hint" />
-
-        <EditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/holo_red_light"
+            android:layout_gravity="center"
             android:visibility="invisible" />
 
         <Button
