@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +41,8 @@ import java.io.ByteArrayOutputStream;
  * to quickly set the user name and profile picture
  */
 public class ProfileConfigurationActivity extends AppCompatActivity {
+
+    private static final String TAG = ProfileConfigurationActivity.class.getSimpleName();
 
     private static final int REQUEST_CODE_IMAGE_RETRIEVAL = 1234;
     private static final String STORAGE_REFERENCE_PROFILE_IMAGES = "profile_images";
@@ -195,7 +198,7 @@ public class ProfileConfigurationActivity extends AppCompatActivity {
         StorageReference profileImageRef =
                 rootRef.child(STORAGE_REFERENCE_PROFILE_IMAGES + "/" + pictureFileName);
 
-        final Bitmap photoBitmap = BitmapUtils.loadBitmapFromUri(photoLocalUri, this);
+        final Bitmap photoBitmap = BitmapUtils.loadCompressedBitmapFromUri(photoLocalUri, this);
         final byte[] photoByteArray = BitmapUtils.getBitmapByteArray(photoBitmap);
 
         if (photoByteArray != null) {
