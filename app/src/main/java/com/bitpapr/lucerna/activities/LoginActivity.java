@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity
     implements OnCompleteListener<AuthResult>, OnFailureListener{
 
     private static final String TAG = LoginActivity.class.getSimpleName();
+    public static final String FIREBASE_ERROR_USER_NOT_FOUND = "ERROR_USER_NOT_FOUND";
+    public static final String FIREBASE_ERROR_USER_DISABLED = "ERROR_USER_DISABLED";
 
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
@@ -91,9 +93,9 @@ public class LoginActivity extends AppCompatActivity
         } else if (e instanceof FirebaseAuthInvalidUserException) {
             final String errorCode = ((FirebaseAuthInvalidUserException) e).getErrorCode();
 
-            if (TextUtils.equals(errorCode, "ERROR_USER_NOT_FOUND")) {
+            if (TextUtils.equals(errorCode, FIREBASE_ERROR_USER_NOT_FOUND)) {
                 showNotExistentAccountMessage();
-            } else if (TextUtils.equals(errorCode, "ERROR_USER_DISABLED")) {
+            } else if (TextUtils.equals(errorCode, FIREBASE_ERROR_USER_DISABLED)) {
                 showAccountDisabledMessage();
             }
         } else if (e instanceof FirebaseNetworkException) {

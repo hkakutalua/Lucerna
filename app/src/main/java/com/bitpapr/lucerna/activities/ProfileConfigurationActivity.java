@@ -184,7 +184,7 @@ public class ProfileConfigurationActivity extends AppCompatActivity {
 
     /**
      * Uploads a picture to Firebase Storage and then set it as profile picture
-     * if the upload succeeds
+     * if the upload succeeds. The image is compressed before the upload process.
      * @param photoLocalUri the local uri of the picture to upload
      */
     private void uploadProfilePhoto(Uri photoLocalUri) {

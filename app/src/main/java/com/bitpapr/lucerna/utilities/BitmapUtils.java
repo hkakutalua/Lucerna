@@ -42,6 +42,13 @@ public class BitmapUtils {
         }
     }
 
+    /**
+     * Loads a bitmap from a local Uri and then compress it to
+     * reduce it's size
+     * @param localUri the local uri
+     * @param context the app context
+     * @return a compressed bitmap
+     */
     public static Bitmap loadCompressedBitmapFromUri(Uri localUri, Context context) {
         Bitmap compressedBitmap = loadBitmapFromUri(localUri, context);
 

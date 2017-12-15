@@ -52,6 +52,9 @@ public class LaunchActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Shows the profile configuration activity
+     */
     private void showProfileConfigurationActivity() {
         Intent profileConfigurationIntent = new Intent(this, ProfileConfigurationActivity.class);
         startActivity(profileConfigurationIntent);
