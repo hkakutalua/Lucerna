@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitpapr.lucerna.R;
+import com.bitpapr.lucerna.fragments.PopularMoviesFragment;
 import com.bitpapr.lucerna.models.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -43,8 +44,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         ImageView moviePosterImageView = (ImageView)findViewById(R.id.iv_movie_poster);
 
         Intent intent = getIntent();
-        if (intent.hasExtra(MainActivity.EXTRA_MOVIE)) {
-            Movie movie = Parcels.unwrap(intent.getParcelableExtra(MainActivity.EXTRA_MOVIE));
+        if (intent.hasExtra(PopularMoviesFragment.EXTRA_MOVIE)) {
+            Movie movie = Parcels.unwrap(intent.getParcelableExtra(PopularMoviesFragment.EXTRA_MOVIE));
 
             movieTitleTextView.setText(movie.getTitle());
             movieOverviewTextView.setText(movie.getOverview());

@@ -1,4 +1,9 @@
 <resources>
+
+    <!-- Action bar drawer toggle strings -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
     <string name="app_name">Lucerna</string>
     <string name="error_message">Algo de errado aconteceu, verifique a sua conexão.</string>
     <string name="movie_details">Detalhes do Filme</string>
@@ -60,5 +65,10 @@
     <string name="picture_upload_error_text">Não foi possível fazer o upload desta imagem</string>
     <string name="picture_dowload_error_text">Não foi possível descarregar a sua foto de perfil</string>
     <string name="picture_not_existent_error">A fotografia selecionada foi movida ou apagada</string>
+    <string name="popular_movies_text">Filmes populares</string>
+    <string name="favorited_movies_text">Filmes favoritados</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

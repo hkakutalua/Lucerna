@@ -1,170 +1,135 @@
 package com.bitpapr.lucerna.activities;
 
-import android.content.Intent;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.Loader;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.bitpapr.lucerna.adapters.MovieAdapter;
 import com.bitpapr.lucerna.R;
-import com.bitpapr.lucerna.models.Movie;
-import com.bitpapr.lucerna.utilities.NetworkUtils;
+import com.bitpapr.lucerna.fragments.PopularMoviesFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity
-        implements LoaderManager.LoaderCallbacks<ArrayList<Object>>,
-        MovieAdapter.MovieListItemClickListener {
-
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
 
-    private static final int GET_MOVIES_IN_THEATER_LOADER = 1;
-    public static final String EXTRA_MOVIE = "extra_movie";
+    private DrawerLayout mDrawerLayout;
+    private Toolbar mToolbar;
+    private NavigationView mNavigationView;
+    private ImageView mProfileImageView;
+    private TextView mNameTextView;
+    private TextView mEmailTextView;
 
-    RecyclerView mMoviesRecyclerView;
-    ProgressBar mProgressBar;
-    MovieAdapter mMovieAdapter;
-    NetworkUtils mNetworkUtils;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mNetworkUtils = new NetworkUtils(this);
+        mNavigationView = findViewById(R.id.navigation_view);
+        mToolbar = findViewById(R.id.toolbar);
+        mDrawerLayout = findViewById(R.id.drawer_layout_main);
 
-        mMoviesRecyclerView = (RecyclerView)findViewById(R.id.rv_movies);
-        mProgressBar = (ProgressBar)findViewById(R.id.pb_loading);
+        View navigationViewHeader = mNavigationView.getHeaderView(0);
 
-        mMovieAdapter = new MovieAdapter(this, this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,
-            LinearLayoutManager.VERTICAL, false);
+        mProfileImageView = navigationViewHeader.findViewById(R.id.image_profile_picture);
+        mNameTextView = navigationViewHeader.findViewById(R.id.text_name);
+        mEmailTextView = navigationViewHeader.findViewById(R.id.text_email);
 
-        mMoviesRecyclerView.setAdapter(mMovieAdapter);
-        mMoviesRecyclerView.setLayoutManager(layoutManager);
-
-        LoaderManager loaderManager = getSupportLoaderManager();
-        loaderManager.initLoader(GET_MOVIES_IN_THEATER_LOADER, null, this);
+        loadUserData();
+        setupNavigationDrawer();
     }
 
     @Override
-    public Loader<ArrayList<Object>> onCreateLoader(int id, Bundle args) {
-        return new AsyncTaskLoader<ArrayList<Object>>(this) {
-            ArrayList<Object> mCachedData = null;
-
-            @Override
-            protected void onStartLoading() {
-                super.onStartLoading();
-                if (mCachedData == null) {
-                    mProgressBar.setVisibility(View.VISIBLE);
-                    forceLoad();
-                } else {
-                    deliverResult(mCachedData);
-                }
-            }
-
-            @Override
-            public ArrayList<Object> loadInBackground() {
-                try {
-                    return fetchAndCategorizeTopMovies();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, e.getMessage());
-                    return null;
-                }
-            }
-
-            @Override
-            public void deliverResult(ArrayList<Object> data) {
-                super.deliverResult(data);
-                mCachedData = data;
-            }
-        };
-    }
-
-    @Override
-    public void onLoadFinished(Loader<ArrayList<Object>> loader, ArrayList<Object> data) {
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mMovieAdapter.setAdapterData(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<ArrayList<Object>> loader) {
-        // NOT IMPLEMENTED
-    }
-
-    @Override
-    public void onMovieListItemClick(int position) {
-
-        ArrayList<Object> adapterData = mMovieAdapter.getAdapterData();
-
-        Movie movie = (Movie) adapterData.get(position);
-        if (movie != null) {
-            Intent detailsIntent = new Intent(this, MovieDetailsActivity.class);
-            detailsIntent.putExtra(EXTRA_MOVIE, Parcels.wrap(movie));
-            startActivity(detailsIntent);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final int itemId = item.getItemId();
 
-        switch (itemId) {
-            case R.id.action_refresh:
-                getSupportLoaderManager().restartLoader(GET_MOVIES_IN_THEATER_LOADER,
-                    null, this);
+        if (mDrawerToggle.onOptionsItemSelected(item)) return true;
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private ArrayList<Object> fetchAndCategorizeTopMovies() throws IOException {
+    private void loadUserData() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        ArrayList<Movie> actionMovies = mNetworkUtils.getTopMoviesByGenre(Movie.Genre.Action,
-            MainActivity.this);
-        ArrayList<Movie> dramaMovies = mNetworkUtils.getTopMoviesByGenre(Movie.Genre.Drama,
-                MainActivity.this);
-        ArrayList<Movie> horrorMovies = mNetworkUtils.getTopMoviesByGenre(Movie.Genre.Horror,
-                MainActivity.this);
-        ArrayList<Movie> sciFiMovies = mNetworkUtils.getTopMoviesByGenre(Movie.Genre.ScienceFiction,
-                MainActivity.this);
+        if (firebaseUser != null) {
+            if (firebaseUser.getPhotoUrl() != null) {
+                Picasso.with(this).load(firebaseUser.getPhotoUrl())
+                        .into(mProfileImageView);
+            } else {
+                mProfileImageView.setImageResource(R.drawable.ic_default_profile_150dp);
+            }
 
-        ArrayList<Object> categorizedList = new ArrayList<Object>();
+            mNameTextView.setText(firebaseUser.getDisplayName());
+            mEmailTextView.setText(firebaseUser.getEmail());
+        }
+    }
 
-        categorizedList.add(getString(R.string.action_movies_category));
-        categorizedList.addAll(actionMovies.subList(0, 4));
+    private void setupNavigationDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,
+                mDrawerLayout,
+                mToolbar,
+                R.string.drawer_open,
+                R.string.drawer_close);
 
-        categorizedList.add(getString(R.string.drama_movies_category));
-        categorizedList.addAll(dramaMovies.subList(0, 4));
+        setSupportActionBar(mToolbar);
 
-        categorizedList.add(getString(R.string.horror_movies_category));
-        categorizedList.addAll(horrorMovies.subList(0, 4));
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        categorizedList.add(getString(R.string.science_fiction_movies_category));
-        categorizedList.addAll(sciFiMovies.subList(0, 4));
+        mNavigationView.setNavigationItemSelectedListener((MenuItem menuItem) -> {
+            selectNavigationItem(menuItem);
+            return true;
+        });
 
-        return categorizedList;
+        MenuItem firstItem = mNavigationView.getMenu().getItem(0);
+        if (firstItem != null) {
+            selectNavigationItem(firstItem);
+        }
+    }
+
+    private void selectNavigationItem(MenuItem menuItem) {
+        Fragment fragment = null;
+
+        switch (menuItem.getItemId()) {
+            case R.id.action_popular_movies:
+                fragment = new PopularMoviesFragment();
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame_layout_content, fragment)
+                    .commit();
+
+            menuItem.setChecked(true);
+            setTitle(menuItem.getTitle());
+
+            mDrawerLayout.closeDrawers();
+        }
     }
 }
